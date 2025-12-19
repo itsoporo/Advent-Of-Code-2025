@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -15,26 +16,35 @@ int main() {
     int dial = 50;
     int zeroMatches = 0;
 
+    int startingAtZero = 0;
     while (std::getline(PuzzleInput, rowText)) {
         char dialDirection = rowText[0];
         int dialSpinAmount = std::stoi(&rowText[1]);
         
         // dial switching
+
         if (rowText[0] == 'R') {
-            dial = wrapAround(dial + dialSpinAmount, 100);
+            // Moving right makes it easy
+            zeroMatches += (dial + dialSpinAmount) / 100;
+            dial = (dial + dialSpinAmount) % 100;
         } else {
+            // two cases moving left
+
+            if (dial > 0 && dialSpinAmount >= dial) {
+                zeroMatches += 1 + (dialSpinAmount - dial) / 100;
+            } else if (dial == 0 && dialSpinAmount >= 100) {
+                zeroMatches += dialSpinAmount / 100;
+            }
             dial = wrapAround(dial - dialSpinAmount, 100);
         }
 
-        // Password adding
-        if (dial == 0) {
-            zeroMatches++;
-        }
+        // std::cout << rowText << " At: " << dial << " " << zeroMatches << "\n";
+
     }
 
     //Printing Out the solution
 
-    std::cout << zeroMatches;
+    std::cout << zeroMatches << "\n";
 
     // closing to prevent memory leaks
     PuzzleInput.close();
