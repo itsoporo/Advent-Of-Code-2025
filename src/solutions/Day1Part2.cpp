@@ -21,7 +21,7 @@ int main() {
         char dialDirection = rowText[0];
         int dialSpinAmount = std::stoi(&rowText[1]);
         
-        // dial switching
+        // Dial switching
 
         if (rowText[0] == 'R') {
             // Moving right makes it easy
