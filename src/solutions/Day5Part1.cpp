@@ -21,8 +21,6 @@ int main() {
     // accessing the file using ifstream, writing is ofstream
     std::ifstream PuzzleInput("../inputs/Day5.txt");
 
-    std::vector<std::vector<int>> grid;
-
     int freshIds = 0;
 
     // getting food ranges
